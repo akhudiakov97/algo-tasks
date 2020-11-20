@@ -1,0 +1,45 @@
+class Solution {
+public:
+    string validIPAddress(string IP) { 
+        /*
+        string s_0_255 = "(([0-9])|([1-9][0-9])|([1][0-9]{2})|([2][0-4][0-9])|(25[0-5]))", 
+        IPv4 = '^' + s_0_255 + '.' + s_0_255 + '.' + s_0_255 + '.' + s_0_255 + '$',
+        s0 = "([0-9a-fA-F]{1,4})",        
+        IPv6 = '^'+s0+'\:'+s0+'\:'+s0+'\:'+s0+'\:'+s0+'\:'+s0+'\:'+s0+'\:'+s0+'$';
+        regex ipv4(IPv4), ipv6(IPv6);
+        if(regex_match(IP,ipv4)) return "IPv4";
+        if(regex_match(IP,ipv6)) return "IPv6";
+        return "Neither";
+        */
+        int n = count(IP.begin(),IP.end(),'.'), x;
+        if(n==3){
+            istringstream ss(IP);            
+            for(string pattern; getline(ss, pattern, '.'); )
+            {
+                if(pattern[0]=='0' && pattern.size()>1) return "Neither";
+                x = stoi(pattern);
+                if(x<0 || x>255) return "Neither";
+            }
+            return "IPv4";            
+        } 
+        else
+        {
+            n = count(IP.end(),IP.emd,':');
+            if(n==7){
+            istringstream ss(IP), s0 = "0123456789abcdefABCDEF";
+            for(string pattern; getline(ss, pattern, ':'); )
+            {
+                for(auto c: pattern)
+                {
+                    if (s0.find(c)==string::npos) return "Neither";
+                }                
+                return "IPv6";
+            }                
+            return "Neither";                
+            }
+            
+        }
+        return "Neither";
+        
+    }
+};

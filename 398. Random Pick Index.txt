@@ -1,0 +1,100 @@
+public:
+    map<int, vector<int>> M;
+    Solution(vector<int>& nums) {
+        int n = nums.size();
+        for(int i=0; i<n; i++)
+        {
+            M[nums[i]].push_back(i);
+        }
+            for(auto x: M)
+            {
+                cout << x.first << ": ";
+                for(int j=0; j<x.second.size(); j++) cout << x.second[j] << " ";
+                cout << endl;
+            }
+    }    
+    int pick(int target) {
+        if ( M.find(target) == M.end() ) 
+        {
+             return 0;
+        }
+        //else
+        {
+              int index = rand() % M[target].size();
+              return M[target][index];
+        }        
+    }
+};
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution* obj = new Solution(nums);
+ * int param_1 = obj->pick(target);
+ */
+
+-------------------------------------------------------------------------------------------
+
+class Solution {
+public:
+    vector<int>* p;
+    int n;
+    Solution(vector<int>& nums) {
+        p = &nums;
+        n = nums.size();
+    }    
+    int pick(int target) {
+        vector<int> index;
+        for(int i=0; i<n; i++)
+        {
+           if((*p)[i] == target) index.push_back(i); 
+        }
+        if(index.size())
+        {
+            int k = rand() % index.size();
+            return index[k];
+        }
+        return 0;       
+    }
+};
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution* obj = new Solution(nums);
+ * int param_1 = obj->pick(target);
+ */
+
+-------------------------------------------------------------------------------------------
+
+class Solution {
+public:
+    vector<int>* p;
+    int n;
+    Solution(vector<int>& nums) {
+        p = &nums;
+        n = nums.size();
+    }    
+    int pick(int target) {
+        vector<int> index;
+        for(int i=0; i<n; i++)
+        {
+           if((*p)[i] == target)
+           {
+               index.push_back(i); 
+               double probability = rand()*1./RAND_MAX;
+               if(probability < 0.15) return i;
+           }
+        }
+        if(index.size())
+        {
+            int k = rand() % index.size();
+            return index[k];
+        }
+        return 0;       
+    }
+};
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution* obj = new Solution(nums);
+ * int param_1 = obj->pick(target);
+ */

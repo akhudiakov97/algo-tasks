@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
+        bool index;
+        map<string, string> M;
+        for(int i=0; i<accounts.size()-1; i+=index)
+        {
+            for(int a=1; a<accounts[i].size(); a++) M[accounts[i][a]]=accounts[i][0];                
+            index = 1;            
+            for(int j=i+1; j<accounts.size(); j++)
+            {                
+                for(int b=1; b<accounts[j].size(); b++) 
+                {                    
+                    if(M.find(accounts[j][b]) != M.end() && M[accounts[j][b]]==accounts[j][0])
+                    {
+                        index = 0;                               
+                        for(int c=1; c<accounts[j].size(); c++) 
+                            if(!(M.find(accounts[j][c]) != M.end()&& M[accounts[j][c]]==accounts[j][0])) 
+                            {
+                                M[accounts[j][c]] = accounts[j][0];
+                                accounts[i].push_back(accounts[j][c]);
+                                
+                            }
+                        accounts.erase(accounts.begin()+j);                               
+                        j--; 
+                    }
+                }
+            }
+        }
+        int n = accounts.size();
+        for(int i=0; i<n; i++)
+        {
+            if(accounts[i].size()>2)
+            {
+                auto p = accounts[i].begin(); p++;
+                sort(p, accounts[i].end());
+            }            
+        }        
+        return accounts;
+    }
+};

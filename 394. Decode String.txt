@@ -1,0 +1,32 @@
+class Solution {
+public:
+string d(string s, int n){
+    string ss = "";
+    while(n--) ss += s;
+    return ss;
+}
+
+bool g(string s){ // string s is without brakets
+       return (s.find("[") == string::npos);
+    }
+
+string decodeString(string s) {
+        if(g(s)) return s;
+        int p0 = -1, p1 = -1, p2 = -1, p = -1;
+        while(p2<0){
+            p++;
+            if(isdigit(s[p]) && !(p>0 && isdigit(s[p-1]))) p0 = p;
+            if(s[p] == '[') p1 = p;
+            if(s[p] == ']') p2 = p;
+        }
+        string tmp = s.substr(p0,p1);
+        int n = stoi(tmp);
+        tmp = s.substr(p1+1,p2-p1-1);
+        string t = d(tmp, n);
+
+        return decodeString(
+                 s.substr(0,p0) +
+                 t +
+                 s.substr(p2+1));
+    }
+};
