@@ -1,1 +1,1 @@
-# js-algo
+# algo-tasks
